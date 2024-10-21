@@ -1,7 +1,7 @@
 from rest_framework.relations import SlugRelatedField
 from rest_framework.serializers import ModelSerializer
 
-from realty.models import Building, Flat, Floor, Project
+from .models import Building, Flat, Floor, Project
 
 
 class ProjectSerializer(ModelSerializer):

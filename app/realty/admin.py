@@ -1,25 +1,28 @@
 from django.contrib import admin
 
-from realty.models import Building, Flat, Floor, Project
+from realty.models import Building, Flat, Floor, Project, Section
 
 
+@admin.register(Flat)
 class FlatAdmin(admin.ModelAdmin):
     pass
 
 
+@admin.register(Building)
 class BuildingAdmin(admin.ModelAdmin):
     pass
 
 
-class FloorAdmin(admin.ModelAdmin):
+@admin.register(Section)
+class SectionAdmin(admin.ModelAdmin):
     pass
 
 
+@admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
     pass
 
 
-admin.site.register(Flat, FlatAdmin)
-admin.site.register(Building, BuildingAdmin)
-admin.site.register(Project, ProjectAdmin)
-admin.site.register(Floor, FloorAdmin)
+@admin.register(Floor)
+class FloorAdmin(admin.ModelAdmin):
+    pass

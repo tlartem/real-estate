@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from realty.models import Flat, Floor
-from realty.serializers import FlatDetailSerializer, FlatListSerializer, FloorWithFlatsSerializer
+from realty.serializers import FlatDetailSerializer, FlatListSerializer, FlatsOnFloorSerializer
 
 
 class FlatDetailView(APIView):
@@ -26,5 +26,5 @@ class FlatsOnFloorView(APIView):
             building__id=building_id,
             number=floor_number,
         )
-        serializer = FloorWithFlatsSerializer(floor)
+        serializer = FlatsOnFloorSerializer(floor)
         return Response(serializer.data)

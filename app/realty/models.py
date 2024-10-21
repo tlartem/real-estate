@@ -1,6 +1,7 @@
 from django.core.validators import MinValueValidator
 from django.db.models import (
     CASCADE,
+    SET_NULL,
     CharField,
     DateField,
     DecimalField,
@@ -89,6 +90,17 @@ class Floor(Model):
         return f'Этаж {self.number}'
 
 
+class Section(Model):
+    name = CharField(verbose_name='Название', max_length=50)
+
+    building = ForeignKey(
+        verbose_name='Корпус', to=Building, on_delete=CASCADE, related_name='sections'
+    )
+
+    def __str__(self) -> str:
+        return f'Секция {self.name}, корпус {self.building}'
+
+
 class Flat(Realty):
     rooms = PositiveSmallIntegerField(
         verbose_name='Кол-во комнат',
@@ -108,6 +120,15 @@ class Flat(Realty):
 
     settlement_before = DateField(
         verbose_name='Заселение после',
+    )
+
+    section = ForeignKey(
+        verbose_name='Секция',
+        to=Section,
+        on_delete=SET_NULL,
+        related_name='flats',
+        null=True,
+        blank=True,
     )
 
     building = ForeignKey(
