@@ -1,15 +1,15 @@
 from django.core.validators import MinValueValidator
 from django.db.models import (
-    Model,
-    CharField,
-    ForeignKey,
     CASCADE,
-    DecimalField,
+    CharField,
     DateField,
-    ImageField,
-    TextField,
-    PositiveSmallIntegerField,
+    DecimalField,
     FloatField,
+    ForeignKey,
+    ImageField,
+    Model,
+    PositiveSmallIntegerField,
+    TextField,
 )
 
 
@@ -18,6 +18,9 @@ class Project(Model):
         verbose_name='Имя',
         max_length=100,
     )
+
+    def __str__(self):
+        return self.name
 
 
 class Realty(Model):
@@ -50,7 +53,15 @@ class Realty(Model):
         default='On sale',
     )
 
-    project = ForeignKey(Project, on_delete=CASCADE, related_name='realities')
+    project = ForeignKey(
+        verbose_name='Проект',
+        to=Project,
+        on_delete=CASCADE,
+        related_name='realities',
+    )
+
+    def __str__(self):
+        return f'{self.project}:'
 
     class Meta:
         abstract = True
@@ -62,6 +73,9 @@ class Building(Model):
         max_length=100,
     )
     project = ForeignKey(Project, on_delete=CASCADE, related_name='buildings')
+
+    def __str__(self):
+        return self.name
 
 
 class Flat(Realty):
@@ -87,4 +101,17 @@ class Flat(Realty):
         verbose_name='Заселение после',
     )
 
-    building = ForeignKey(Building, on_delete=CASCADE, related_name='flats')
+    building = ForeignKey(
+        verbose_name='Корпус',
+        to=Building,
+        on_delete=CASCADE,
+        related_name='flats',
+    )
+
+    def __str__(self):
+        return (
+            f'{self.building.project}, '
+            f'Корпус: {self.building}, '
+            f'Этаж: {self.floor}, '
+            f'Комнат: {self.rooms}'
+        )
