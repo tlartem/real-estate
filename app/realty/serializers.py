@@ -1,7 +1,7 @@
 from rest_framework.relations import SlugRelatedField
 from rest_framework.serializers import ModelSerializer
 
-from realty.models import Building, Flat, Project
+from realty.models import Building, Flat, Floor, Project
 
 
 class ProjectSerializer(ModelSerializer):
@@ -25,6 +25,11 @@ class FlatDetailSerializer(ModelSerializer):
     building = SlugRelatedField(
         slug_field='name',
         queryset=Building.objects.all(),
+    )
+
+    floor = SlugRelatedField(
+        slug_field='number',
+        queryset=Floor.objects.all(),
     )
 
     class Meta:

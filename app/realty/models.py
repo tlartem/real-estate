@@ -9,6 +9,7 @@ from django.db.models import (
     ImageField,
     Model,
     PositiveSmallIntegerField,
+    SmallIntegerField,
     TextField,
 )
 
@@ -78,6 +79,16 @@ class Building(Model):
         return self.name
 
 
+class Floor(Model):
+    number = SmallIntegerField(verbose_name='Номер этажа')
+    building = ForeignKey(
+        verbose_name='Здание', to=Building, on_delete=CASCADE, related_name='floors'
+    )
+
+    def __str__(self) -> str:
+        return f'Этаж {self.number}'
+
+
 class Flat(Realty):
     rooms = PositiveSmallIntegerField(
         verbose_name='Кол-во комнат',
@@ -93,9 +104,7 @@ class Flat(Realty):
         validators=[MinValueValidator(0)],
     )
 
-    floor = PositiveSmallIntegerField(
-        verbose_name='Этаж',
-    )
+    floor = ForeignKey(verbose_name='Этаж', to=Floor, on_delete=CASCADE, related_name='flats')
 
     settlement_before = DateField(
         verbose_name='Заселение после',
@@ -112,6 +121,6 @@ class Flat(Realty):
         return (
             f'{self.building.project}, '
             f'Корпус: {self.building}, '
-            f'Этаж: {self.floor}, '
+            f'{self.floor}, '
             f'Комнат: {self.rooms}'
         )
