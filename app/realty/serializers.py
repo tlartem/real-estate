@@ -44,3 +44,11 @@ class FlatListSerializer(ModelSerializer):
     class Meta:
         model = Flat
         fields = ['id', 'rooms', 'price', 'project', 'building']
+
+
+class FlatsOnFloorSerializer(ModelSerializer):
+    flats = FlatListSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Floor
+        fields = ['id', 'number', 'building', 'flats']

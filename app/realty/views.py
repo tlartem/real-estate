@@ -2,8 +2,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from realty.models import Flat
-from realty.serializers import FlatDetailSerializer, FlatListSerializer
+from realty.models import Flat, Floor
+from realty.serializers import FlatDetailSerializer, FlatListSerializer, FloorWithFlatsSerializer
 
 
 class FlatDetailView(APIView):
@@ -16,4 +16,15 @@ class FlatDetailView(APIView):
 class FlatListView(APIView):
     def get(self, request):
         serializer = FlatListSerializer(Flat.objects.all(), many=True)
+        return Response(serializer.data)
+
+
+class FlatsOnFloorView(APIView):
+    def get(self, request, building_id=None, floor_number=None):
+        floor = get_object_or_404(
+            Floor,
+            building__id=building_id,
+            number=floor_number,
+        )
+        serializer = FloorWithFlatsSerializer(floor)
         return Response(serializer.data)

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
-from realty.views import FlatDetailView, FlatListView
+from realty.views import FlatDetailView, FlatListView, FlatsOnFloorView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -10,6 +10,13 @@ urlpatterns = [
 flats = [
     path('api/flats/', FlatListView.as_view()),
     path('api/flats/<int:flat_pk>/', FlatDetailView.as_view()),
+]
+
+floor_with_flats = [
+    path(
+        'buildings/<int:building_id>/floor/<int:floor_number>/',
+        FlatsOnFloorView.as_view(),
+    )
 ]
 
 schema = [
@@ -21,4 +28,4 @@ schema = [
     ),
 ]
 
-urlpatterns += flats + schema
+urlpatterns += flats + schema + floor_with_flats
