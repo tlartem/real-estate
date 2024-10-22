@@ -49,3 +49,7 @@ class Flat(Realty):
             f'{self.floor}, '
             f'Комнат: {self.plan.rooms}'
         )
+
+    class Meta:
+        verbose_name = 'Квартира'
+        verbose_name_plural = 'Квартиры'

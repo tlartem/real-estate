@@ -25,4 +25,15 @@ class Plan(Model):
         verbose_name_plural = 'Планировки'
 
     def __str__(self):
-        return f'Планировка {self.area} м², {self.rooms} комнаты, кухня {self.kitchen_area} м².'
+        if self.rooms == 1:
+            rooms_word = 'комната'
+        elif 2 <= self.rooms <= 4:
+            rooms_word = 'комнаты'
+        else:
+            rooms_word = 'комнат'
+
+        return (
+            f'{self.rooms} {rooms_word}, '
+            f'Площадь: {self.area} м², '
+            f'Кухня: {self.kitchen_area} м².'
+        )

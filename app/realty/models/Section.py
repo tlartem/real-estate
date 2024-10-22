@@ -11,4 +11,8 @@ class Section(Model):
     )
 
     def __str__(self) -> str:
-        return f'Секция {self.name}, корпус {self.building}'
+        return self.name
+
+    class Meta:
+        verbose_name = 'Секция'
+        verbose_name_plural = 'Секции'

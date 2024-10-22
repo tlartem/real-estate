@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from realty.models import Building, Flat, Floor, Plan, Project, Section
+from realty.models import Building, Floor, Plan, Project, Section
 
 
 @admin.register(Building)
@@ -21,7 +21,3 @@ class FloorAdmin(admin.ModelAdmin): ...
 
 @admin.register(Plan)
 class PlanAdmin(admin.ModelAdmin): ...
-
-
-@admin.register(Flat)
-class FlatAdmin(admin.ModelAdmin): ...
