@@ -2,7 +2,6 @@ from django.core.validators import MinValueValidator
 from django.db.models import (
     CASCADE,
     SET_NULL,
-    DateField,
     FloatField,
     ForeignKey,
     PositiveSmallIntegerField,
@@ -29,10 +28,8 @@ class Flat(Realty):
         validators=[MinValueValidator(0)],
     )
 
-    floor = ForeignKey(verbose_name='Этаж', to=Floor, on_delete=CASCADE, related_name='flats')
-
-    settlement_before = DateField(
-        verbose_name='Заселение после',
+    floor = ForeignKey(
+        verbose_name='Этаж', to=Floor, on_delete=CASCADE, related_name='flats'
     )
 
     section = ForeignKey(

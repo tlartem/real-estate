@@ -7,6 +7,8 @@ from realty.views import (
     FlatDetailView,
     FlatListView,
     FlatsOnFloorView,
+    ProjectDetailView,
+    ProjectListView,
 )
 
 urlpatterns = [
@@ -21,6 +23,11 @@ flats = [
 buildings = [
     path('api/buildings/', BuildingListView.as_view()),
     path('api/buildings/<int:building_id>/', BuildingDetailView.as_view()),
+]
+
+projects = [
+    path('api/projects/', ProjectListView.as_view()),
+    path('api/projects/<int:project_id>/', ProjectDetailView.as_view()),
 ]
 
 floor_with_flats = [
@@ -39,4 +46,4 @@ schema = [
     ),
 ]
 
-urlpatterns += flats + schema + floor_with_flats + buildings
+urlpatterns += flats + schema + floor_with_flats + buildings + projects
