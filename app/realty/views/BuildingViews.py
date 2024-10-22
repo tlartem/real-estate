@@ -38,7 +38,7 @@ class BuildingDetailView(APIView):
 
         class FlatListSerializer(Serializer):
             id = IntegerField()
-            rooms = IntegerField()
+            rooms = IntegerField(source='plan.rooms')
             floor = SlugRelatedField('number', read_only=True)
             section = SlugRelatedField('name', read_only=True)
             project = SlugRelatedField('name', read_only=True)

@@ -19,7 +19,7 @@ class FlatsOnFloorView(APIView):
 
         class FlatsMinSerializer(Serializer):
             id = IntegerField()
-            rooms = IntegerField()
+            rooms = IntegerField(source='plan.rooms')
             price = DecimalField(max_digits=10, decimal_places=2)
             project = SlugRelatedField('name', read_only=True)
             building = SlugRelatedField('name', read_only=True)
