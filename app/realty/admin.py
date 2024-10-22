@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Building, Flat, Floor, Project, Section
+from realty.models import Building, Flat, Floor, Project, Section
 
 
 @admin.register(Flat)
