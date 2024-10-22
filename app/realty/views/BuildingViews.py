@@ -32,7 +32,7 @@ class BuildingDetailView(APIView):
         name = CharField()
         address = CharField()
         project = SlugRelatedField(slug_field='name', read_only=True)
-
+        image = SlugRelatedField(slug_field='image', read_only=True)
         total_flats = IntegerField(source='flats.count', read_only=True)
         total_floors = IntegerField(source='floors.count', read_only=True)
 
