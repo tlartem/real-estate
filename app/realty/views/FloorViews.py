@@ -9,11 +9,11 @@ from rest_framework.serializers import (
 )
 from rest_framework.views import APIView
 
-from realty.models import Floor
+from realty.models import Flat, Floor
 
 
 class FlatsOnFloorView(APIView):
-    class OutputSerializer(Serializer):
+    class FlatsOnFloorSerializer(Serializer):
         number = IntegerField()
         building = CharField()
 
@@ -24,7 +24,15 @@ class FlatsOnFloorView(APIView):
             project = SlugRelatedField('name', read_only=True)
             building = SlugRelatedField('name', read_only=True)
 
+            class Meta:
+                model = Flat
+
         flats = FlatsMinSerializer(many=True, read_only=True)
+
+        class Meta:
+            model = Floor
+
+    serializer_class = FlatsOnFloorSerializer
 
     def get(self, request, building_id=None, floor_number=None):
         floor = get_object_or_404(
@@ -32,5 +40,5 @@ class FlatsOnFloorView(APIView):
             building__id=building_id,
             number=floor_number,
         )
-        serializer = self.OutputSerializer(floor)
+        serializer = self.FlatsOnFloorSerializer(floor)
         return Response(serializer.data)

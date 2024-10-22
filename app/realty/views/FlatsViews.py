@@ -7,7 +7,6 @@ from rest_framework.serializers import (
     FloatField,
     ImageField,
     IntegerField,
-    ModelSerializer,
     Serializer,
     SlugRelatedField,
 )
@@ -17,7 +16,7 @@ from realty.models import Flat
 
 
 class FlatDetailView(APIView):
-    class OutputSerializer(Serializer):
+    class FlatDetailSerializer(Serializer):
         project = SlugRelatedField('name', read_only=True)
         building = SlugRelatedField('name', read_only=True)
         floor = SlugRelatedField('number', read_only=True)
@@ -31,14 +30,19 @@ class FlatDetailView(APIView):
         kitchen_area = FloatField()
         settlement_before = DateField()
 
+        class Meta:
+            model = Flat
+
+    serializer_class = FlatDetailSerializer
+
     def get(self, request, flat_pk=None):
         flat = get_object_or_404(Flat.objects.all(), pk=flat_pk)
-        serializer = self.OutputSerializer(flat)
+        serializer = self.FlatDetailSerializer(flat)
         return Response(serializer.data)
 
 
 class FlatListView(APIView):
-    class OutputSerializer(Serializer):
+    class FlatListSerializer(Serializer):
         id = IntegerField()
         rooms = IntegerField()
         floor = SlugRelatedField('number', read_only=True)
@@ -46,6 +50,11 @@ class FlatListView(APIView):
         project = SlugRelatedField('name', read_only=True)
         building = SlugRelatedField('name', read_only=True)
 
+        class Meta:
+            model = Flat
+
+    serializer_class = FlatListSerializer
+
     def get(self, request):
-        serializer = self.OutputSerializer(Flat.objects.all(), many=True)
+        serializer = self.FlatListSerializer(Flat.objects.all(), many=True)
         return Response(serializer.data)
