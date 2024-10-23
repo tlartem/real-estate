@@ -88,3 +88,6 @@ local_settings.py
 .idea
 .env
 db.sqlite3
+.vscode/settings.json
+**/media/**
+**/static/**

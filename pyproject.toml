@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "real-estate"
+version = "0.1.0"
+description = ""
+authors = ["tlartem <tlartem@ya.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+asgiref = "3.8.1"
+django = "5.1.2"
+python-dotenv = "1.0.1"
+sqlparse = "0.5.1"
+ruff = "^0.7.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff.format]
+quote-style = "single"
+indent-style = "space"
+
+[tool.ruff]
+line-length = 88
