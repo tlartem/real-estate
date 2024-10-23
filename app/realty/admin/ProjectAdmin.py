@@ -12,6 +12,7 @@ class ProjectAdmin(admin.ModelAdmin):
         'description',
         'address',
         'metro',
+        'image',
         'total_buildings',
         'total_flats',
     )

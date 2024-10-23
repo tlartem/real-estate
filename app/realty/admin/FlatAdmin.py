@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from ..models import Flat
+from realty.models import Flat
 
 
 @admin.register(Flat)
