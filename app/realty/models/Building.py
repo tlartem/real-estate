@@ -28,5 +28,9 @@ class Building(Model):
         verbose_name='Срок сдачи',
     )
 
+    class Meta:
+        verbose_name = 'Корпус'
+        verbose_name_plural = 'Корпуса'
+
     def __str__(self):
         return self.name

@@ -11,6 +11,7 @@ class FlatAdmin(admin.ModelAdmin):
         'section',
         'project',
         'building',
+        'plan_image',
         'plan',
     )
     list_display_links = ('id',)
@@ -29,3 +30,8 @@ class FlatAdmin(admin.ModelAdmin):
     )
     list_editable = ()
     list_per_page = 20
+
+    def plan_image(self, obj):
+        return obj.plan.image
+
+    plan_image.short_description = 'Фото планировки'
