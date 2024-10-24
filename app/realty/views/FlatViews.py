@@ -1,4 +1,3 @@
-from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.serializers import (
     CharField,
@@ -13,6 +12,7 @@ from rest_framework.serializers import (
 from rest_framework.views import APIView
 
 from realty.models import Flat
+from realty.repository import FlatRep
 
 
 class FlatDetailView(APIView):
@@ -21,7 +21,7 @@ class FlatDetailView(APIView):
         building = SlugRelatedField('name', read_only=True)
         floor = SlugRelatedField('number', read_only=True)
         section = SlugRelatedField('name', read_only=True)
-        image = SerializerMethodField(method_name='get_image')
+        image = SerializerMethodField()
         description = CharField()
         price = DecimalField(max_digits=10, decimal_places=2)
         status = CharField()
@@ -43,8 +43,8 @@ class FlatDetailView(APIView):
 
     serializer_class = FlatDetailSerializer
 
-    def get(self, request, flat_pk=None):
-        flat = get_object_or_404(Flat.objects.all(), pk=flat_pk)
+    def get(self, request, flat_id: int = None):
+        flat = FlatRep.get_flat(flat_id)
         serializer = self.FlatDetailSerializer(flat, context={'request': request})
         return Response(serializer.data)
 
@@ -64,5 +64,5 @@ class FlatListView(APIView):
     serializer_class = FlatListSerializer
 
     def get(self, request):
-        serializer = self.FlatListSerializer(Flat.objects.all(), many=True)
+        serializer = self.FlatListSerializer(FlatRep.get_flat_list(), many=True)
         return Response(serializer.data)
